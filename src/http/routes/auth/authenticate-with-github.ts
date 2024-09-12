@@ -1,13 +1,13 @@
+import { eq } from "drizzle-orm"
 import type { FastifyInstance } from "fastify"
 import type { ZodTypeProvider } from "fastify-type-provider-zod"
-import { eq } from "drizzle-orm"
 
 import { z } from "zod"
 
-import { env } from "@/env"
 import { db } from "@/db"
-import { BadRequestError } from "@/http/_errors/bad-request-error"
 import { accounts, users } from "@/db/schema"
+import { env } from "@/env"
+import { BadRequestError } from "@/http/_errors/bad-request-error"
 
 export async function authWithGithub(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
