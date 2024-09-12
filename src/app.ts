@@ -1,21 +1,24 @@
-import fastify from "fastify"
-import fastifySwaggerUI from "@fastify/swagger-ui"
+import fastifyCors from "@fastify/cors"
 import fastifyJwt from "@fastify/jwt"
 import fastifySwagger from "@fastify/swagger"
-import fastifyCors from "@fastify/cors"
+import fastifySwaggerUI from "@fastify/swagger-ui"
+import fastify from "fastify"
+
 import scalarAPIReference from "@scalar/fastify-api-reference"
 
-import { authWithGithub } from "@/http/routes/auth/authenticate-with-github"
 import { errorHandler } from "@/http/error-handler"
+
+import { getCurrentUser } from "@/http/routes/users/get-current-user"
 
 import { env } from "@/env"
 
 import {
+  type ZodTypeProvider,
   jsonSchemaTransform,
   serializerCompiler,
-  validatorCompiler,
-  type ZodTypeProvider
+  validatorCompiler
 } from "fastify-type-provider-zod"
+import { authWithGithub } from "./http/routes/auth/authenticate-with-github"
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -69,3 +72,4 @@ app.setErrorHandler(errorHandler)
 
 // ================================ ROUTES ================================
 app.register(authWithGithub)
+app.register(getCurrentUser)
