@@ -11,10 +11,10 @@ import { errorHandler } from "@/http/error-handler"
 import { env } from "@/env"
 
 import {
-    jsonSchemaTransform,
-    serializerCompiler,
-    validatorCompiler,
-    type ZodTypeProvider
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider
 } from "fastify-type-provider-zod"
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -23,46 +23,46 @@ app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 
 app.register(fastifySwagger, {
-    openapi: {
-        info: {
-            title: "Node Template",
-            description: "Sample Node Template",
-            version: "0.0.0"
-        },
-        components: {
-            securitySchemes: {
-                token: {
-                    type: "http",
-                    scheme: "bearer",
-                    bearerFormat: "JWT"
-                }
-            },
-            schemas: {}
-        }
+  openapi: {
+    info: {
+      title: "Node Template",
+      description: "Sample Node Template",
+      version: "0.0.0"
     },
-    transform: jsonSchemaTransform
+    components: {
+      securitySchemes: {
+        token: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT"
+        }
+      },
+      schemas: {}
+    }
+  },
+  transform: jsonSchemaTransform
 })
 
 app.register(fastifySwaggerUI, {
-    routePrefix: "/reference"
+  routePrefix: "/reference"
 })
 
 app.register(scalarAPIReference, {
-    routePrefix: "/docs",
-    configuration: {
-        title: "The Docs",
-        spec: {
-            url: "/reference/json"
-        }
+  routePrefix: "/docs",
+  configuration: {
+    title: "The Docs",
+    spec: {
+      url: "/reference/json"
     }
+  }
 })
 
 app.register(fastifyCors, {
-    origin: env.NODE_ENV === "dev" ? "*" : env.ORIGIN
+  origin: env.NODE_ENV === "dev" ? "*" : env.ORIGIN
 })
 
 app.register(fastifyJwt, {
-    secret: env.JWT_SECRET
+  secret: env.JWT_SECRET
 })
 
 app.setErrorHandler(errorHandler)
