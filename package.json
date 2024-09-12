@@ -24,7 +24,6 @@
 		"drizzle-orm": "^0.33.0",
 		"fastify": "4.28.1",
 		"fastify-type-provider-zod": "^2.0.0",
-		"pg": "^8.12.0",
 		"postgres": "^3.4.4"
 	},
 	"devDependencies": {
@@ -32,7 +31,6 @@
 		"@faker-js/faker": "^9.0.0",
 		"@types/node": "20.14.11",
 		"@types/pg": "^8.11.9",
-		"dotenv": "16.4.5",
 		"drizzle-kit": "^0.24.2",
 		"tsup": "8.1.2",
 		"tsx": "4.16.2",
