@@ -1,27 +1,34 @@
 {
-  "name": "api-solid",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsup src --out-dir build",
-    "start": "node build/server.js",
-    "db:push": "prisma db push",
-    "db:generate": "prisma generate",
-    "db:studio": "prisma studio",
-    "db:dev": "prisma migrate dev"
-  },
-  "dependencies": {
-    "@prisma/client": "5.17.0",
-    "fastify": "4.28.1"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@types/node": "20.14.11",
-    "dotenv": "16.4.5",
-    "prisma": "5.17.0",
-    "tsup": "8.1.2",
-    "tsx": "4.16.2",
-    "typescript": "5.5.3",
-    "zod": "3.23.8"
-  }
+	"name": "api-solid",
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch src/server.ts",
+		"build": "tsup src --out-dir build",
+		"start": "node build/server.js",
+		"db:check": "--env-file .env drizzle-kit check",
+		"db:generate": "--env-file .env drizzle-kit generate",
+		"db:migrate": "--env-file .env drizzle-kit migrate",
+		"db:migrate:drop": "--env-file .env drizzle-kit drop",
+		"db:pull": "--env-file .env drizzle-kit introspect",
+		"db:push": "--env-file .env drizzle-kit push",
+		"db:studio": "--env-file .env drizzle-kit studio",
+		"db:up": "--env-file .env drizzle-kit up"
+	},
+	"dependencies": {
+		"@paralleldrive/cuid2": "^2.2.2",
+		"drizzle-orm": "^0.33.0",
+		"fastify": "4.28.1",
+		"pg": "^8.12.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@types/node": "20.14.11",
+		"@types/pg": "^8.11.9",
+		"dotenv": "16.4.5",
+		"drizzle-kit": "^0.24.2",
+		"tsup": "8.1.2",
+		"tsx": "4.16.2",
+		"typescript": "5.5.3",
+		"zod": "3.23.8"
+	}
 }
