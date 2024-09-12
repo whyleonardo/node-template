@@ -108,18 +108,16 @@ export async function authWithGithub(app: FastifyInstance) {
         user = newUser
       }
 
-      let account = await db.query.accounts.findFirst({
+      const account = await db.query.accounts.findFirst({
         where: eq(accounts.userId, user.id)
       })
 
       if (!account) {
-        const [newAccount] = await db.insert(accounts).values({
+        await db.insert(accounts).values({
           provider: "github",
           providerAccountId: githubUserId,
           userId: user.id
         })
-
-        account = newAccount
       }
 
       const token = await reply.jwtSign(
