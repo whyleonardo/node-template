@@ -7,6 +7,9 @@ import {
 } from "drizzle-orm/pg-core"
 import { createId } from "@paralleldrive/cuid2"
 import { relations } from "drizzle-orm"
+import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+
+export const providerEnum = pgEnum("provider", ["github"])
 
 export const users = pgTable("user", {
   id: text("id")
@@ -18,8 +21,6 @@ export const users = pgTable("user", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull()
 })
-
-export const providerEnum = pgEnum("provider", ["github"])
 
 export const accounts = pgTable(
   "account",
@@ -43,3 +44,6 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const accountsRelations = relations(accounts, ({ one }) => ({
   userId: one(users, { fields: [accounts.userId], references: [users.id] })
 }))
+
+export const selectUserSchema = createSelectSchema(users)
+export const insertUserSchema = createInsertSchema(users)
